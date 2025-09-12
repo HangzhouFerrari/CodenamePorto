@@ -112,7 +112,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 60px;
+      margin-top: 80px;
       margin-bottom: -60px;
     }
 
@@ -153,7 +153,6 @@
     .btn1::before { background-image: url(Assets/Header/Games.svg); }
     .btn2::before { background-image: url(Assets/Header/Tools.svg); }
     .btn3::before { background-image: url(Assets/Header/Themas.svg); }
-    .btn4::before { background-image: url(Assets/Header/Archief.svg); }
     .btn5::before { background-image: url(Assets/Header/Leren.svg); }
 
     .nav-button > * { position: relative; z-index: 1; }
@@ -180,7 +179,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.377);
       display: none;
       align-items: center;
       justify-content: center;
@@ -188,19 +187,22 @@
     }
 
     .overlay-content {
-      background: white;
       padding: 30px;
       border-radius: 16px;
       text-align: center;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.10) 100%);
+      backdrop-filter: blur(3px);
+      box-shadow: -1px -1px 0 0 rgba(255, 255, 255, 0.30) inset, 1px 1px 0 0 rgba(255, 255, 255, 0.50) inset;
+
     }
 
     .close-btn {
       margin-top: 10px;
       padding: 8px 16px;
-      background-color: #444;
-      color: white;
+      background-color: #ffffff;
+      color: rgb(0, 0, 0);
       border: none;
-      border-radius: 8px;
+      border-radius: 16px;
       cursor: pointer;
     }
 
@@ -263,6 +265,16 @@
   background-image: url("Assets/Icons/Light/Default/cijfers.png");
 }
 
+/* Voeg eventueel iconen toe in de CSS */
+.grid-icon[data-icon="custom1"] { background-image: url("Assets/Icons/Light/Default/agenda.png"); }
+.grid-icon[data-icon="custom2"] { background-image: url("Assets/Icons/Light/Default/notities.png"); }
+.grid-icon[data-icon="custom3"] { background-image: url("Assets/Icons/Light/Default/taken.png"); }
+.grid-icon[data-icon="custom4"] { background-image: url("Assets/Icons/Light/Default/projecten.png"); }
+.grid-icon[data-icon="custom5"] { background-image: url("Assets/Icons/Light/Default/bestanden.png"); }
+.grid-icon[data-icon="custom6"] { background-image: url("Assets/Icons/Light/Default/contacten.png"); }
+.grid-icon[data-icon="custom7"] { background-image: url("Assets/Icons/Light/Default/favorieten.png"); }
+.grid-icon[data-icon="custom8"] { background-image: url("Assets/Icons/Light/Default/instellingen.png"); }
+.grid-icon[data-icon="custom9"] { background-image: url("Assets/Icons/Light/Default/overzicht.png"); }
   </style>
 </head>
 <body>
@@ -273,7 +285,6 @@
       <button class="nav-button btn1" onclick="openOverlay('overlay1')"></button>
       <button class="nav-button btn2" onclick="openOverlay('overlay2')"></button>
       <button class="nav-button btn3" onclick="location.href='pagina3.html'"></button>
-      <button class="nav-button btn4" onclick="location.href='pagina4.html'"></button>
       <button class="nav-button btn5" onclick="location.href='pagina5.html'"></button>
     </div>
   </header>
@@ -356,8 +367,44 @@
   <div id="overlay1" class="overlay">
     <div class="overlay-content">
       <h2>Overlay 1 Inhoud</h2>
-      <p>Hier komt de inhoud van overlay 1.</p>
-      <button class="close-btn" onclick="closeOverlay('overlay1')">Sluiten</button>
+      <div class="grid" style="width: 420px; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 24px auto;">
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom1"></div>
+          <div class="grid-label">Agenda</div>
+        </a>
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom2"></div>
+          <div class="grid-label">Notities</div>
+        </a>
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom3"></div>
+          <div class="grid-label">Taken</div>
+        </a>
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom4"></div>
+          <div class="grid-label">Projecten</div>
+        </a>
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom5"></div>
+          <div class="grid-label">Bestanden</div>
+        </a>
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom6"></div>
+          <div class="grid-label">Contacten</div>
+        </a>
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom7"></div>
+          <div class="grid-label">Favorieten</div>
+        </a>
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom8"></div>
+          <div class="grid-label">Instellingen</div>
+        </a>
+        <a href="#" class="grid-item" target="_blank">
+          <div class="grid-icon" data-icon="custom9"></div>
+          <div class="grid-label">Overzicht</div>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -378,6 +425,15 @@
     function closeOverlay(id) {
       document.getElementById(id).style.display = 'none';
     }
+
+    // Sluit overlay bij klik op achtergrond
+    document.querySelectorAll('.overlay').forEach(function(overlay) {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          overlay.style.display = 'none';
+        }
+      });
+    });
   </script>
 
     <script>
