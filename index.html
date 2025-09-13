@@ -95,6 +95,41 @@
       font-size: 14px;
     }
 
+     .grid2 {
+      align-items: center;
+      width: 300px;
+      margin: 16px auto 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 4px !important;
+      background-size: cover;
+    }
+    .grid-item2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+    .grid-icon2 {
+      width: 60px;
+      height: 60px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 16.6667px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .grid-icon2:hover {
+      transform: scale(1.2);
+      filter: brightness(0.8);
+    }
+    .grid-label2 {
+      color: #ffffff;
+      margin-top: 5.3333px;
+      font-family: 'Red Hat Display', sans-serif;
+      font-size: 12px;
+    }
+
 
     header {
       background-color: rgba(255, 255, 255, 0);
@@ -186,14 +221,31 @@
       z-index: 9999;
     }
 
+    #overlay1 {
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 65px;
+      padding-left: 250px;
+    }
+
     .overlay-content {
-      padding: 30px;
+      padding: 0px 0px;
       border-radius: 16px;
       text-align: center;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.10) 100%);
       backdrop-filter: blur(3px);
       box-shadow: -1px -1px 0 0 rgba(255, 255, 255, 0.30) inset, 1px 1px 0 0 rgba(255, 255, 255, 0.50) inset;
 
+    }
+
+    .overlay-content h2 {
+      color:rgba(255, 255, 255, 0.9);
+      font-family: 'Red Hat Display', sans-serif;
+      margin-top: 0px;
+      margin-bottom: 8px;
+      padding-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
     }
 
     .close-btn {
@@ -266,15 +318,15 @@
 }
 
 /* Voeg eventueel iconen toe in de CSS */
-.grid-icon[data-icon="custom1"] { background-image: url("Assets/Icons/Light/Default/agenda.png"); }
-.grid-icon[data-icon="custom2"] { background-image: url("Assets/Icons/Light/Default/notities.png"); }
-.grid-icon[data-icon="custom3"] { background-image: url("Assets/Icons/Light/Default/taken.png"); }
-.grid-icon[data-icon="custom4"] { background-image: url("Assets/Icons/Light/Default/projecten.png"); }
-.grid-icon[data-icon="custom5"] { background-image: url("Assets/Icons/Light/Default/bestanden.png"); }
-.grid-icon[data-icon="custom6"] { background-image: url("Assets/Icons/Light/Default/contacten.png"); }
-.grid-icon[data-icon="custom7"] { background-image: url("Assets/Icons/Light/Default/favorieten.png"); }
-.grid-icon[data-icon="custom8"] { background-image: url("Assets/Icons/Light/Default/instellingen.png"); }
-.grid-icon[data-icon="custom9"] { background-image: url("Assets/Icons/Light/Default/overzicht.png"); }
+.grid-icon2[data-icon="custom1"] { background-image: url("Assets/Icons/Header/Light/Default/Crazygames.png"); }
+.grid-icon2[data-icon="custom2"] { background-image: url("Assets/Icons/Header/Light/Default/Poki.png"); }
+.grid-icon2[data-icon="custom3"] { background-image: url("Assets/Icons/Header/Light/Default/Gsnake.png"); }
+.grid-icon2[data-icon="custom4"] { background-image: url("Assets/Icons/Header/Light/Default/Roblox.png"); }
+.grid-icon2[data-icon="custom5"] { background-image: url("Assets/Icons/Header/Light/Default/Smashkarts.png"); }
+.grid-icon2[data-icon="custom6"] { background-image: url("Assets/Icons/Header/Light/Default/Polytrack.png"); }
+.grid-icon2[data-icon="custom7"] { background-image: url("Assets/Icons/Header/Light/Default/Myhotel.png"); }
+.grid-icon2[data-icon="custom8"] { background-image: url("Assets/Icons/Header/Light/Default/Drivemad.png"); }
+.grid-icon2[data-icon="custom9"] { background-image: url("Assets/Icons/Header/Light/Default/Mrbullet.png"); }
   </style>
 </head>
 <body>
@@ -366,43 +418,43 @@
   <!-- Overlay 1 -->
   <div id="overlay1" class="overlay">
     <div class="overlay-content">
-      <h2>Overlay 1 Inhoud</h2>
-      <div class="grid" style="width: 420px; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 24px auto;">
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom1"></div>
-          <div class="grid-label">Agenda</div>
+      <h2>Games</h2>
+      <div class="grid2">
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom1"></div>
+          <div class="grid-label2">Crazy Games</div>
         </a>
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom2"></div>
-          <div class="grid-label">Notities</div>
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom2"></div>
+          <div class="grid-label2">Poki</div>
         </a>
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom3"></div>
-          <div class="grid-label">Taken</div>
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom3"></div>
+          <div class="grid-label2">Google Snake</div>
         </a>
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom4"></div>
-          <div class="grid-label">Projecten</div>
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom4"></div>
+          <div class="grid-label2">Roblox</div>
         </a>
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom5"></div>
-          <div class="grid-label">Bestanden</div>
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom5"></div>
+          <div class="grid-label2">Smash karts</div>
         </a>
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom6"></div>
-          <div class="grid-label">Contacten</div>
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom6"></div>
+          <div class="grid-label2">Poly track</div>
         </a>
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom7"></div>
-          <div class="grid-label">Favorieten</div>
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom7"></div>
+          <div class="grid-label2">My hotel</div>
         </a>
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom8"></div>
-          <div class="grid-label">Instellingen</div>
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom8"></div>
+          <div class="grid-label2">Drive mad</div>
         </a>
-        <a href="#" class="grid-item" target="_blank">
-          <div class="grid-icon" data-icon="custom9"></div>
-          <div class="grid-label">Overzicht</div>
+        <a href="#" class="grid-item2" target="_blank">
+          <div class="grid-icon2" data-icon="custom9"></div>
+          <div class="grid-label2">Mr bullet</div>
         </a>
       </div>
     </div>
