@@ -33,8 +33,11 @@
       margin: 0 auto;
     }
     .search-box {
+      display: flex;
+      margin: 0 auto;
       color: #ffffff;
       width: 800px;
+      max-width: 800px;
       height: 60px;
       border-radius: 40px;
       padding: 0 24px;
@@ -48,8 +51,10 @@
       transition: background-color 0.3s;
       backdrop-filter: blur(3px);
       box-shadow: -1px -1px 0 0 rgba(255, 255, 255, 0.30) inset, 1px 1px 0 0 rgba(255, 255, 255, 0.50) inset;
+      justify-content: center;
+      align-items: center;
     }
-    .search-box:hover:not(:focus) {
+  search-box:hover:not(:focus) {
       background-color: #d2d9e333;
     }
     .search-box::placeholder {
@@ -134,14 +139,19 @@
     header {
       background-color: rgba(255, 255, 255, 0);
       border-radius: 16px;
-      padding: 10px 20px;
+      padding: 10px 30px 0 0; /* extra ruimte rechtsboven */
       display: flex;
       align-items: center;
-      justify-content: right;
-      position: sticky;
+      justify-content: flex-end; /* forceer rechts uitlijnen */
+      position: fixed;
       top: 0;
-      z-index: 1000;
-      margin: 10px;
+      right: 0;
+      left: auto;
+      width: auto; /* niet 100vw, zodat buttons niet uitrekken */
+      margin: 0;
+      background: none;
+      box-shadow: none;
+      z-index: 10001;
     }
     .logo-container {
       display: flex;
@@ -149,6 +159,7 @@
       align-items: center;
       margin-top: 80px;
       margin-bottom: -60px;
+      padding-top: 80px;
     }
 
     .logo {
@@ -159,6 +170,9 @@
     .button-container {
       display: flex;
       gap: 15px;
+      justify-content: flex-end; /* rechts uitlijnen */
+      align-items: center;
+      width: auto;
     }
 
     .nav-button {
@@ -173,7 +187,16 @@
       overflow: hidden;
       cursor: pointer;
       transition: background-color 0.3s, filter 0.2s, transform 0.2s;
+      z-index: 10002; /* nav-buttons nog hoger dan header */
     }
+
+    @keyframes fadeInBtn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.nav-button.fade-in {
+  animation: fadeInBtn 0.4s;
+}
 
     .nav-button::before {
       content: "";
@@ -209,33 +232,58 @@
 
     /* Overlay stijl */
     .overlay {
-      position: fixed;
+      position: fixed; /* fixed zodat het altijd het hele scherm bedekt */
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.377);
+      background: rgba(0, 0, 0, 0.0); /* begin transparant */
       display: none;
-      align-items: center;
+      align-items: flex-start; /* overlay1 uitlijning bovenaan */
       justify-content: center;
-      z-index: 9999;
+      z-index: 9999; /* lager dan nav-buttons/header */
+      transition: background 0.5s cubic-bezier(.4,0,.2,1);
     }
 
+    .overlay.active {
+  background: rgba(0, 0, 0, 0.377); /* fade-in */
+  transition: background 0.5s cubic-bezier(.4,0,.2,1);
+}
+
     #overlay1 {
+      /* overlay1 gebruikt flex-start voor uitlijning */
       justify-content: center;
       align-items: flex-start;
-      padding-top: 65px;
-      padding-left: 250px;
     }
 
     .overlay-content {
       padding: 0px 0px;
-      border-radius: 16px;
+      border-radius: 40px;
       text-align: center;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.10) 100%);
+      animation: none;
+       background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.10) 100%);
       backdrop-filter: blur(3px);
       box-shadow: -1px -1px 0 0 rgba(255, 255, 255, 0.30) inset, 1px 1px 0 0 rgba(255, 255, 255, 0.50) inset;
-
+    }
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-150px) scale(0.3);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-150px) scale(0.3);
+      }
     }
 
     .overlay-content h2 {
@@ -327,17 +375,23 @@
 .grid-icon2[data-icon="custom7"] { background-image: url("Assets/Icons/Header/Light/Default/Myhotel.png"); }
 .grid-icon2[data-icon="custom8"] { background-image: url("Assets/Icons/Header/Light/Default/Drivemad.png"); }
 .grid-icon2[data-icon="custom9"] { background-image: url("Assets/Icons/Header/Light/Default/Mrbullet.png"); }
+
+.nav-button.invisible {
+  opacity: 0 !important;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
   </style>
 </head>
 <body>
 
   <header>
-  
     <div class="button-container">
-      <button class="nav-button btn1" onclick="openOverlay('overlay1')"></button>
+      <button id="nav-btn1" class="nav-button btn1" onclick="openOverlay('overlay1')"></button>
       <button class="nav-button btn2" onclick="openOverlay('overlay2')"></button>
-      <button class="nav-button btn3" onclick="location.href='pagina3.html'"></button>
-      <button class="nav-button btn5" onclick="location.href='pagina5.html'"></button>
+      <button class="nav-button btn3" onclick="openOverlay('overlay3')"></button>
+      <button class="nav-button btn5" onclick="openOverlay('overlay4')"></button>
     </div>
   </header>
 
@@ -346,9 +400,11 @@
 </div>
 
 <div class="container">
-  <form action="https://www.google.com/search" method="GET" target="_blank">
+<form action="https://www.google.com/search" method="GET" target="_blank">
+  <div class="searchbar-container">
     <input type="text" name="q" class="search-box" placeholder="Zoeken..." autocomplete="off" spellcheck="false" />
-  </form>
+  </div>
+</form>
 
   <div class="grid">
     <a href="https://murmellius.magister.net/magister/#/" class="grid-item" target="_blank" rel="noopener noreferrer">
@@ -420,39 +476,39 @@
     <div class="overlay-content">
       <h2>Games</h2>
       <div class="grid2">
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://www.crazygames.com/" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom1"></div>
           <div class="grid-label2">Crazy Games</div>
         </a>
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://poki.com/nl" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom2"></div>
           <div class="grid-label2">Poki</div>
         </a>
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://share.google/3PWo5B1IMhZPi58rv" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom3"></div>
           <div class="grid-label2">Google Snake</div>
         </a>
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://www.roblox.com" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom4"></div>
           <div class="grid-label2">Roblox</div>
         </a>
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://smashkarts.io/" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom5"></div>
           <div class="grid-label2">Smash karts</div>
         </a>
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://poki.com/nl/g/polytrack" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom6"></div>
           <div class="grid-label2">Poly track</div>
         </a>
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://poki.com/nl/g/my-perfect-hotel" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom7"></div>
           <div class="grid-label2">My hotel</div>
         </a>
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://poki.com/nl/g/drive-mad" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom8"></div>
           <div class="grid-label2">Drive mad</div>
         </a>
-        <a href="#" class="grid-item2" target="_blank">
+        <a href="https://poki.com/nl/g/mr-bullet" class="grid-item2" target="_blank">
           <div class="grid-icon2" data-icon="custom9"></div>
           <div class="grid-label2">Mr bullet</div>
         </a>
@@ -469,35 +525,109 @@
     </div>
   </div>
 
+  <!-- Overlay 3 -->
+  <div id="overlay3" class="overlay">
+    <div class="overlay-content">
+      <h2>Overlay 3 Inhoud</h2>
+      <p>Hier komt de inhoud van overlay 3.</p>
+      <button class="close-btn" onclick="closeOverlay('overlay3')">Sluiten</button>
+    </div>
+  </div>
+
+  <!-- Overlay 4 -->
+  <div id="overlay4" class="overlay">
+    <div class="overlay-content">
+      <h2>Overlay 4 Inhoud</h2>
+      <p>Hier komt de inhoud van overlay 4.</p>
+      <button class="close-btn" onclick="closeOverlay('overlay4')">Sluiten</button>
+    </div>
+  </div>
+
   <script>
-    function openOverlay(id) {
-      document.getElementById(id).style.display = 'flex';
-    }
-
-    function closeOverlay(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-
-    // Sluit overlay bij klik op achtergrond
-    document.querySelectorAll('.overlay').forEach(function(overlay) {
-      overlay.addEventListener('click', function(e) {
-        if (e.target === overlay) {
-          overlay.style.display = 'none';
-        }
-      });
-    });
-  </script>
-
-    <script>
-  const form = document.querySelector('form');
-  const input = document.querySelector('.search-box');
-
-  form.addEventListener('submit', () => {
-    setTimeout(() => {
-      input.value = '';
-    }, 100);
+function openOverlay(id) {
+  document.querySelectorAll('.overlay').forEach(function(overlay) {
+    overlay.style.display = 'none';
+    overlay.classList.remove('active');
+    const overlayContent = overlay.querySelector('.overlay-content');
+    overlayContent.style.animation = '';
   });
-</body>
-</html>
+  document.querySelectorAll('.nav-button').forEach(function(btn) {
+    btn.classList.remove('invisible');
+    btn.style.opacity = '';
+    btn.style.visibility = '';
+    btn.style.pointerEvents = '';
+  });
+
+  let btn;
+  if (id === 'overlay1') btn = document.getElementById('nav-btn1');
+  else if (id === 'overlay2') btn = document.querySelectorAll('.nav-button')[1];
+  else if (id === 'overlay3') btn = document.querySelectorAll('.nav-button')[2];
+  else if (id === 'overlay4') btn = document.querySelectorAll('.nav-button')[3];
+
+  const overlay = document.getElementById(id);
+  const overlayContent = overlay.querySelector('.overlay-content');
+  overlay.style.display = 'flex';
+  setTimeout(() => overlay.classList.add('active'), 10);
+
+  if (btn) {
+    btn.classList.add('invisible');
+    btn.style.pointerEvents = 'none';
+    const rect = btn.getBoundingClientRect();
+    const overlayWidth = overlayContent.offsetWidth || 300;
+    const left = rect.left + rect.width / 2 - overlayWidth / 2;
+    const top = rect.bottom + 8;
+    overlayContent.style.left = left + 'px';
+    overlayContent.style.top = top + 'px';
+    overlayContent.style.position = 'absolute';
+    overlayContent.style.animation = 'slideDown 0.5s ease forwards';
+  } else {
+    overlayContent.style.animation = 'slideDown 0.5s ease forwards';
+  }
+}
+
+function closeOverlay(id) {
+  const overlay = document.getElementById(id);
+  const overlayContent = overlay.querySelector('.overlay-content');
+  let btn;
+  if (id === 'overlay1') btn = document.getElementById('nav-btn1');
+  else if (id === 'overlay2') btn = document.querySelectorAll('.nav-button')[1];
+  else if (id === 'overlay3') btn = document.querySelectorAll('.nav-button')[2];
+  else if (id === 'overlay4') btn = document.querySelectorAll('.nav-button')[3];
+
+  // Fade-in animatie toevoegen
+  if (btn) {
+    btn.classList.remove('invisible');
+    btn.style.opacity = '';
+    btn.style.visibility = '';
+    btn.style.pointerEvents = '';
+    btn.classList.add('fade-in');
+    setTimeout(() => btn.classList.remove('fade-in'), 400);
+  }
+  overlayContent.style.animation = 'slideUp 0.4s ease forwards';
+  overlay.classList.remove('active');
+  setTimeout(function() {
+    overlay.style.display = 'none';
+    overlayContent.style.animation = '';
+  }, 400);
+}
+
+// Overlay sluiten bij klik buiten content
+document.querySelectorAll('.overlay').forEach(function(overlay) {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      closeOverlay(overlay.id);
+    }
+  });
+});
+
+// Zoekveld resetten na submit
+const form = document.querySelector('form');
+const input = document.querySelector('.search-box');
+form.addEventListener('submit', () => {
+  setTimeout(() => {
+    input.value = '';
+  }, 100);
+});
+</script>
 </body>
 </html>
